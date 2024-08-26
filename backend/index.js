@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const Router = require('./route/router');
 
-// MongoDB connection URI
-const uri = "mongodb+srv://charanchowdarynunnam:KzULXYPA8UqWl4R4@seequenze.ngp9l.mongodb.net/seequenze?retryWrites=true&w=majority";
+const dburl = 'mongodb+srv://charanchowdarynunnam:KzULXYPA8UqWl4R4@seequenze.ngp9l.mongodb.net/?retryWrites=true&w=majority&appName=Seequenze';
 
-// Connect to MongoDB using Mongoose
-mongoose.connect(uri, { 
-  // Options have been removed since they are deprecated in Mongoose 4.0.0+
+// Connect to MongoDB
+mongoose.connect(dburl, {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
 })
-  .then(() => console.log("Successfully connected to MongoDB!"))
-  .catch(err => console.error("Error connecting to MongoDB:", err));
+.then(() => console.log('Connected to DB Successfully!'))
+.catch((err) => console.log('DB Connection Error:', err.message));
 
 const app = express();
 app.use(cors());
@@ -21,5 +21,5 @@ app.use('/api', Router);
 
 const port = 3000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });
